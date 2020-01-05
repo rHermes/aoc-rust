@@ -1,3 +1,4 @@
+// 2015 Day 1
 pub fn part1(input: &[u8]) -> Result<String, String> {
     let mut score: i64 = 0;
 

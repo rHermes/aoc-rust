@@ -41,8 +41,10 @@ async fn main() {
                 .build()
                 .unwrap();
 
-            // We want to get the input for each of these
-            let tasks = vec![(2015, 1), (2015, 2)];
+            // let tasks = (2015..2020).flat_map(|y| (1..26).map(move |d| (y, d))).collect::<Vec<_>>();
+            let tasks = (2015..2016)
+                .flat_map(|y| (1..26).map(move |d| (y, d)))
+                .collect::<Vec<_>>();
 
             let neinei = tasks
                 .iter()
@@ -81,9 +83,11 @@ async fn main() {
                 Err(a) => a,
             };
 
-            println!("  {}-{:02}:", y, d);
-            println!("    Part 1: {}", part1);
-            println!("    Part 2: {}", part2);
+            if part1 != "We don't have that task." || part2 != "We don't have that task." {
+                println!("  {}-{:02}:", y, d);
+                println!("    Part 1: {}", part1);
+                println!("    Part 2: {}", part2);
+            }
         }
     }
 }
