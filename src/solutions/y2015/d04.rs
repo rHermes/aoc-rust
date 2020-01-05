@@ -1,22 +1,26 @@
 // 2015 Day 4
-use md5;
+use md5::{Digest, Md5};
+use std::io::Write;
 
 pub fn part1(input: &[u8]) -> Result<String, String> {
-    let mut base_ctx = md5::Context::new();
+    let mut hasher = Md5::new();
 
-    base_ctx.consume(
-        input
-            .iter()
-            .take_while(|&&x| x != b'\n')
-            .copied()
-            .collect::<Vec<u8>>(),
-    );
+    let rinput = input
+        .iter()
+        .take_while(|&&x| x != b'\n')
+        .copied()
+        .collect::<Vec<u8>>();
 
+    let mut buf = Vec::with_capacity(8);
     let ans = (0..u32::max_value())
         .filter_map(|x| {
-            let mut nctx = base_ctx.clone();
-            nctx.consume(x.to_string().as_bytes());
-            let dgst = nctx.compute();
+            buf.clear();
+            write!(buf, "{}", x).unwrap();
+
+            hasher.input(&rinput);
+            hasher.input(&buf);
+
+            let dgst = hasher.result_reset();
 
             if dgst[..2] == [0, 0] && dgst[2] < 0x10 {
                 Some(x.to_string())
@@ -30,22 +34,24 @@ pub fn part1(input: &[u8]) -> Result<String, String> {
 }
 
 pub fn part2(input: &[u8]) -> Result<String, String> {
-    let mut base_ctx = md5::Context::new();
+    let mut hasher = Md5::new();
 
-    // This is to remove possible new lines
-    base_ctx.consume(
-        input
-            .iter()
-            .take_while(|&&x| x != b'\n')
-            .copied()
-            .collect::<Vec<u8>>(),
-    );
+    let rinput = input
+        .iter()
+        .take_while(|&&x| x != b'\n')
+        .copied()
+        .collect::<Vec<u8>>();
 
+    let mut buf = Vec::with_capacity(8);
     let ans = (0..u32::max_value())
         .filter_map(|x| {
-            let mut nctx = base_ctx.clone();
-            nctx.consume(x.to_string().as_bytes());
-            let dgst = nctx.compute();
+            buf.clear();
+            write!(buf, "{}", x).unwrap();
+
+            hasher.input(&rinput);
+            hasher.input(&buf);
+
+            let dgst = hasher.result_reset();
 
             if dgst[..3] == [0, 0, 0] {
                 Some(x.to_string())

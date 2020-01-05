@@ -10,7 +10,7 @@ but for the support code tehre is no rules.
 
 Solutions which use foregin crates are:
 
-- 2015-04: `md5` crate to compute md5
+- 2015-04: `md-5` crate to compute md5
 
 ## How to run
 

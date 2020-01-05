@@ -13,4 +13,4 @@ bytes = { version = "^0.5" }
 futures = "0.3"
 sha2 = "0.8.0"
 dirs = "2.0"
-md5 = "0.7"
+md-5 = "0.8"
