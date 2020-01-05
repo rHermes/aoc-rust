@@ -1,72 +1,61 @@
 // 2015 Day 2
 pub fn part1(input: &[u8]) -> Result<String, String> {
-    let mut score: u32 = 0;
+    let ans = input
+        .split(|&x| x == b'\n')
+        .take_while(|x| x.len() > 0)
+        .fold(Ok(0), |acc, sub| {
+            if acc.is_err() {
+                return acc;
+            }
+            let mut numbers = sub
+                .split(|&x| x == b'x')
+                .map(|x| x.iter().fold(0, |nacc, &y| nacc * 10 + ((y - b'0') as u32)));
 
-    let mut iter = input.iter().peekable();
+            // No safe way to unpack this so we have to drop spead
+            let l = numbers.next().ok_or("Invalid input".to_string())?;
+            let w = numbers.next().ok_or("Invalid input".to_string())?;
+            let h = numbers.next().ok_or("Invalid input".to_string())?;
 
-    while let Some(_) = iter.peek() {
-        let mut king = iter.by_ref().take_while(|&&x| x != b'\n');
+            let lw = l * w;
+            let lh = l * h;
+            let wh = w * h;
 
-        // Convert
-        let l = king
-            .by_ref()
-            .take_while(|&&x| x != b'x')
-            .fold(0, |acc, &x| acc * 10 + ((x - b'0') as u32));
-        let w = king
-            .by_ref()
-            .take_while(|&&x| x != b'x')
-            .fold(0, |acc, &x| acc * 10 + ((x - b'0') as u32));
-        let h = king
-            .by_ref()
-            .take_while(|&&x| x != b'x')
-            .fold(0, |acc, &x| acc * 10 + ((x - b'0') as u32));
+            acc.map(|acc| acc + 2 * lw + 2 * lh + 2 * wh + lw.min(lh.min(wh)))
+        });
 
-        // Calculate sides
-        let lw = l * w;
-        let lh = l * h;
-        let wh = w * h;
-
-        score += 2 * lw + 2 * lh + 2 * wh + lw.min(lh.min(wh));
-    }
-
-    Ok(score.to_string())
+    ans.map(|x| x.to_string())
 }
 
 pub fn part2(input: &[u8]) -> Result<String, String> {
-    let mut score: u32 = 0;
+    let ans = input
+        .split(|&x| x == b'\n')
+        .take_while(|x| x.len() > 0)
+        .fold(Ok(0), |acc, sub| {
+            if acc.is_err() {
+                return acc;
+            }
+            let mut numbers = sub
+                .split(|&x| x == b'x')
+                .map(|x| x.iter().fold(0, |nacc, &y| nacc * 10 + ((y - b'0') as u32)));
 
-    let mut iter = input.iter().peekable();
+            // No safe way to unpack this so we have to drop spead
+            let l = numbers.next().ok_or("Invalid input".to_string())?;
+            let w = numbers.next().ok_or("Invalid input".to_string())?;
+            let h = numbers.next().ok_or("Invalid input".to_string())?;
 
-    while let Some(_) = iter.peek() {
-        let mut king = iter.by_ref().take_while(|&&x| x != b'\n');
+            // Calculate sides
+            let m = l.max(w.max(h));
 
-        // Convert
-        let l = king
-            .by_ref()
-            .take_while(|&&x| x != b'x')
-            .fold(0, |acc, &x| acc * 10 + ((x - b'0') as u32));
-        let w = king
-            .by_ref()
-            .take_while(|&&x| x != b'x')
-            .fold(0, |acc, &x| acc * 10 + ((x - b'0') as u32));
-        let h = king
-            .by_ref()
-            .take_while(|&&x| x != b'x')
-            .fold(0, |acc, &x| acc * 10 + ((x - b'0') as u32));
+            let k = if m == l {
+                2 * w + 2 * h
+            } else if m == w {
+                2 * l + 2 * h
+            } else {
+                2 * w + 2 * l
+            };
 
-        // Calculate sides
-        let m = l.max(w.max(h));
+            acc.map(|acc| acc + l * w * h + k)
+        });
 
-        let k = if m == l {
-            2 * w + 2 * h
-        } else if m == w {
-            2 * l + 2 * h
-        } else {
-            2 * w + 2 * l
-        };
-
-        score += l * w * h + k;
-    }
-
-    Ok(score.to_string())
+    ans.map(|x| x.to_string())
 }
