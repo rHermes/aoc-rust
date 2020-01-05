@@ -2,10 +2,14 @@ use std::collections::HashMap;
 use std::convert::TryFrom;
 use std::env;
 
+use std::time::Instant;
+
 use reqwest;
 use reqwest::header::HeaderValue;
 
 use futures::future::join_all;
+
+use colored::*;
 
 use tokio;
 
@@ -74,19 +78,32 @@ async fn main() {
 
             let input = i.as_ref().unwrap();
 
+            let start1 = Instant::now();
             let part1 = match aoc::solutions::run_task(*y, *d, 1, input.as_ref()) {
                 Ok(a) => a,
                 Err(a) => a,
             };
+            let dur1 = start1.elapsed();
+
+            let start2 = Instant::now();
             let part2 = match aoc::solutions::run_task(*y, *d, 2, input.as_ref()) {
                 Ok(a) => a,
                 Err(a) => a,
             };
+            let dur2 = start2.elapsed();
 
             if part1 != "We don't have that task." || part2 != "We don't have that task." {
                 println!("  {}-{:02}:", y, d);
-                println!("    Part 1: {}", part1);
-                println!("    Part 2: {}", part2);
+                println!(
+                    "    Part 1: {:>10} {:>10} ms",
+                    part1.green(),
+                    dur1.as_millis().to_string().blue()
+                );
+                println!(
+                    "    Part 2: {:>10} {:>10} ms",
+                    part2.green(),
+                    dur2.as_millis().to_string().blue()
+                );
             }
         }
     }
