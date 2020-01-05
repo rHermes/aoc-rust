@@ -6,11 +6,13 @@ problems.
 ## Dependencies
 
 I try to keep the dependencies as few as possible when solving the tasks,
-but for the support code tehre is no rules.
+but for the support code there is no rules.
 
 Solutions which use foregin crates are:
 
-- 2015-04: `md-5` crate to compute md5
+- 2015-04:
+  - `md-5`: compute md5
+  - `num_cpus`: Find number of threads for threading
 
 ## How to run
 
