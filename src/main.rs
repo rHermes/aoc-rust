@@ -48,6 +48,7 @@ async fn main() {
             // let tasks = (2015..2020).flat_map(|y| (1..26).map(move |d| (y, d))).collect::<Vec<_>>();
             let tasks = (2015..2016)
                 .flat_map(|y| (1..26).map(move |d| (y, d)))
+                // .filter(|&x| x != (2015, 4))  // Filter out slow task
                 .collect::<Vec<_>>();
 
             let neinei = tasks
