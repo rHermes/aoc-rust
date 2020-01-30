@@ -13,6 +13,8 @@ Solutions which use foregin crates are:
 - 2015-04:
   - `md-5`: compute md5
   - `num_cpus`: Find number of threads for threading
+- 2015-12:
+  - `serde_json`: To read json
 
 ## How to run
 
