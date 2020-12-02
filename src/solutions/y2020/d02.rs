@@ -37,22 +37,17 @@ pub fn part1(input: &[u8]) -> Result<String, String> {
     let ans = input
         .split(|&x| x == b'\n')
         .take_while(|x| x.len() > 0)
-        .fold(Ok(0usize), |acc: Result<usize, String>, x| {
-            if acc.is_err() {
-                return acc;
-            }
-
+        .try_fold(0usize, |acc, x| -> Result<usize, String> {
             let line = parse_input(x)?;
 
             let i = line.password.iter().filter(|x| **x == line.c).count();
 
             if line.low <= i && i <= line.high {
-                acc.map(|x| x + 1)
+                Ok(acc + 1)
             } else {
-                acc
+                Ok(acc)
             }
         })?;
-
     Ok(ans.to_string())
 }
 
@@ -60,11 +55,7 @@ pub fn part2(input: &[u8]) -> Result<String, String> {
     let ans = input
         .split(|&x| x == b'\n')
         .take_while(|x| x.len() > 0)
-        .fold(Ok(0usize), |acc: Result<usize, String>, x| {
-            if acc.is_err() {
-                return acc;
-            }
-
+        .try_fold(0usize, |acc, x| -> Result<usize, String> {
             let line = parse_input(x)?;
 
             let a = line
@@ -78,9 +69,9 @@ pub fn part2(input: &[u8]) -> Result<String, String> {
                 .map(|x| *x == line.c)
                 .ok_or("invalid format".to_string())?;
             if (a && !b) || (!a && b) {
-                acc.map(|x| x + 1)
+                Ok(acc + 1)
             } else {
-                acc
+                Ok(acc)
             }
         })?;
 
