@@ -34,6 +34,8 @@ pub fn run_task(year: i32, day: i32, part: i32, input: &[u8]) -> Result<String, 
         // 2020
         (2020, 1, 1) => y2020::d01::part1(input),
         (2020, 1, 2) => y2020::d01::part2(input),
+        (2020, 2, 1) => y2020::d02::part1(input),
+        (2020, 2, 2) => y2020::d02::part2(input),
         _ => Err("We don't have that task.".to_string()),
     }
 }
