@@ -15,6 +15,11 @@ use tokio;
 
 const SESSION_PREFIX: &str = "AOC_SESSION_";
 
+use alloc_counter::AllocCounterSystem;
+
+#[global_allocator]
+static A: AllocCounterSystem = AllocCounterSystem;
+
 #[tokio::main]
 async fn main() {
     // Get the session keys
@@ -46,7 +51,7 @@ async fn main() {
                 .unwrap();
 
             let tasks = (2020..2021)
-                .flat_map(|y| (2..7).map(move |d| (y, d)))
+                .flat_map(|y| (2..16).map(move |d| (y, d)))
                 .filter(|&x| x != (2015, 4)) // Filter out slow task
                 .collect::<Vec<_>>();
 
