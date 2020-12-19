@@ -100,14 +100,14 @@ async fn main() {
             if part1 != "We don't have that task." || part2 != "We don't have that task." {
                 println!("  {}-{:02}:", y, d);
                 println!(
-                    "    Part 1: {:>10} {:>10} ms",
+                    "    Part 1: {:>10} {:>10} μs",
                     part1.green(),
-                    dur1.as_millis().to_string().blue()
+                    dur1.as_micros().to_string().blue()
                 );
                 println!(
-                    "    Part 2: {:>10} {:>10} ms",
+                    "    Part 2: {:>10} {:>10} μs",
                     part2.green(),
-                    dur2.as_millis().to_string().blue()
+                    dur2.as_micros().to_string().blue()
                 );
             }
         }

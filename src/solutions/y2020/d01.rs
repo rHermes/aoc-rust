@@ -1,7 +1,5 @@
 // 2020 Day 1
 
-// use std::str;
-
 pub fn part1(input: &[u8]) -> Result<String, String> {
     let nums = input
         .split(|&x| x == b'\n')

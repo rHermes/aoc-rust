@@ -1,3 +1,5 @@
+// 2020 Day 5
+
 use std::cmp::{max, min};
 
 fn to_id(x: &[u8]) -> u16 {
