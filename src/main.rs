@@ -50,8 +50,8 @@ async fn main() {
                 .build()
                 .unwrap();
 
-            let tasks = (2020..2021)
-                .flat_map(|y| (2..16).map(move |d| (y, d)))
+            let tasks = (2020..2023)
+                .flat_map(|y| (1..25).map(move |d| (y, d)))
                 .filter(|&x| x != (2015, 4)) // Filter out slow task
                 .collect::<Vec<_>>();
 
