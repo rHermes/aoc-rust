@@ -1,6 +1,7 @@
 pub mod y2015;
 pub mod y2019;
 pub mod y2020;
+pub mod y2022;
 
 pub fn run_task(year: i32, day: i32, part: i32, input: &[u8]) -> Result<String, String> {
     match (year, day, part) {
@@ -42,6 +43,10 @@ pub fn run_task(year: i32, day: i32, part: i32, input: &[u8]) -> Result<String, 
         (2020, 4, 2) => y2020::d04::part2(input),
         (2020, 5, 1) => y2020::d05::part1(input),
         (2020, 5, 2) => y2020::d05::part2(input),
+
+        // 2022
+        (2022, 1, 1) => y2022::d01::part1(input),
+        (2022, 1, 2) => y2022::d01::part2(input),
 
         _ => Err("We don't have that task.".to_string()),
     }

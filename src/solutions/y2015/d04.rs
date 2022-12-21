@@ -103,10 +103,10 @@ fn find_hashes(input_begin: &str, part2: bool) -> Option<u64> {
                     buf.clear();
                     write!(buf, "{}", count).unwrap();
 
-                    hasher.input(&key);
-                    hasher.input(&buf);
+                    hasher.update(&key);
+                    hasher.update(&buf);
 
-                    let dgst = hasher.result_reset();
+                    let dgst = hasher.finalize_reset();
 
                     let kv = if !part2 && dgst[..2] == [0, 0] && dgst[2] < 0x10 {
                         Some(count)
